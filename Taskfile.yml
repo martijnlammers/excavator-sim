@@ -1,0 +1,31 @@
+version: '3'
+
+tasks:
+  conan_install:
+    dir: .
+    cmds:
+      - powershell scripts/Taskfile/taskfile_conan_install.ps1
+    silent: false
+
+  cmake:
+    dir: build
+    cmds:
+      - cmake .. -G "Ninja" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_PREFIX_PATH="/build" -DCMAKE_BUILD_TYPE=Release
+    silent: false
+
+  build:
+    dir: build
+    cmds:
+      - cmake --build .
+    silent: false
+
+  clean:
+    dir: .
+    cmds:
+      - powershell scripts/Taskfile/taskfile_clean.ps1
+
+  default:
+    cmds:
+      - task: conan
+      - task: cmake
+      - task: build

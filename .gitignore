@@ -1,0 +1,4 @@
+build.ninja
+cmake_install.cmake
+/build/
+CMakeUserPresets.json
